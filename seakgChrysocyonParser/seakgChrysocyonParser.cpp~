@@ -1,0 +1,167 @@
+/*#include "seakgChrysocyonParser.h"
+
+
+namespace seakgChrysocyon
+{
+	//-----------------------------------------------
+	// CONTEINER
+
+*/
+
+/*	template<class Element>
+	seakgChrysocyonContainer<Element>::seakgChrysocyonContainer() 
+	{
+		
+	};
+	
+	template<class Element>
+	void seakgChrysocyonContainer<Element>::Push(Element &el)
+	{
+		m_vectorStack.push_back(el);
+	};
+	
+	template<class Element>
+	Element &seakgChrysocyonContainer<Element>::Pop()
+	{
+		return m_vectorStack.pop_back();
+	};
+	
+	template<class Element>
+	void seakgChrysocyonContainer<Element>::PushAllTo(seakgChrysocyonContainer<Element> &dst)
+	{
+		for(int i = 0; i < m_vectorStack.size(); i++)
+			dst.Push(m_vectorStack[i]);
+	};
+	*/
+	//-----------------------------------------------
+	// PARSER
+	/*
+	template<class Element>
+	seakgChrysocyonParser<Element>::seakgChrysocyonParser()
+	{
+		
+	}
+	
+	template<class Element>
+	void seakgChrysocyonParser<Element>::AddPuppy(seakgChrysocyonPuppy<Element> *puppy)
+	{
+		m_vectorPuppies.push_back(puppy);
+		return;
+	};
+	
+	template<class Element>
+	bool seakgChrysocyonParser<Element>::Parse(seakgChrysocyonReader<Element> &reader)
+	{
+		VectorPuppy tempPuppy, bufPuppy;
+		CopyVectorPuppy( m_vectorPuppies, tempPuppy);
+		
+		while( !reader.Eof() )
+		{
+			Puppy *puppyOnlyMe;
+			Puppy *puppyComplete;
+			int nPuppyOnlyMe = 0;
+			int nPuppyComplete = 0;
+			int nBufPuppy = 0;
+			
+			for(int i = 0; i < tempPuppy.size(); i++)
+			{
+				Element elem = reader.GetNextElement();
+				seakgChrysocyonAnswer answer = tempPuppy[i]->SendElement(elem);
+				
+				if( answer == schsYetUnknown || schsMaybe )
+				{
+					bufPuppy.push_back(tempPuppy[i]);
+					nBufPuppy++;
+				}
+				
+				if( answer == schsOnlyMe )
+				{
+					puppyOnlyMe = tempPuppy[i];
+					nPuppyOnlyMe++;
+				}
+				
+				if( answer == schsComplete )
+				{
+					puppyComplete = tempPuppy[i];
+					nPuppyComplete++;
+				};
+			};
+			
+				 if( nPuppyOnlyMe == 0 && nPuppyComplete == 1 && nBufPuppy == 0)
+			{
+				Container cntr;
+				puppyComplete->GetResult(cntr);
+				m_vectorContainers.push_back(cntr);
+				ResetAllPuppy();
+				bufPuppy.clear();
+			}
+			else if( nPuppyOnlyMe == 1 && nPuppyComplete == 0 && nBufPuppy == 0)
+			{
+				bufPuppy.clear();
+				bufPuppy.push_back( puppyOnlyMe );
+			}
+			else if( nPuppyOnlyMe == 0 && nPuppyComplete == 0 && nBufPuppy  > 0 )
+			{
+				CopyVectorPuppy( bufPuppy, tempPuppy );
+				bufPuppy.clear();
+			}
+			else if( nPuppyOnlyMe == 0 && nPuppyComplete == 0 && nBufPuppy == 0 )
+			{
+				//error
+				// not found puppy
+				return false;
+			}
+			else if( nPuppyOnlyMe > 1 && nPuppyComplete == 0 && nBufPuppy == 0 )
+			{
+				// слишком много щенков заявили на права
+				return false;
+			}
+			else if( nPuppyOnlyMe == 0 && nPuppyComplete > 1 && nBufPuppy == 0 )
+			{
+				// слишком много щенков говорят что закончили
+				return false;
+			}
+			else
+			{
+				//error Unknown
+				return false;
+			}
+		};
+		
+		return true;
+	};
+	*/
+/*
+	//-----------------------------------------------
+	
+	template<class Element>
+	void seakgChrysocyonParser<Element>::GetResult(std::vector<seakgChrysocyonContainer<Element> > &dest)
+	{
+		for(int i = 0; i < m_vectorContainers.size(); i++)
+			dest.push_back(m_vectorContainers[i]);
+		return;
+	};
+	
+	//-----------------------------------------------
+	
+	template<class Element>
+	void seakgChrysocyonParser<Element>::CopyVectorPuppy(const VectorPuppy &src, VectorPuppy &dst)
+	{
+		for(int i = 0; i < src.size(); i++)
+			dst.push_back(src[i]);
+		return;
+	};
+	
+	//-----------------------------------------------
+	
+	template<class Element>
+	void seakgChrysocyonParser<Element>::ResetAllPuppy()
+	{
+		for(int i = 0; i < m_vectorPuppies.size(); i++)
+			m_vectorPuppies[i]->Reset();
+	};
+	
+	//-----------------------------------------------
+*/
+};
+// place your code here
