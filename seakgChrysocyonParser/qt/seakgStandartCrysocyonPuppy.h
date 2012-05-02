@@ -122,6 +122,68 @@ class seakgPuppyName<QChar,QString> : public seakgChrysocyon::InterfaceChrysocyo
 		bool m_bStepBack;
 };
 
+
+template<typename Element, typename ArrayOfElement> class seakgPuppyStringInDoubleQuotes;
+template <>
+class seakgPuppyStringInDoubleQuotes<QChar,QString> : public seakgChrysocyon::InterfaceChrysocyonPuppy<QChar, QString>
+{
+	public:
+		seakgPuppyStringInDoubleQuotes() { m_strContent = ""; nR = 0; m_bStepBack = false; };
+
+		// InterfaceChrysocyonPuppy
+		virtual seakgChrysocyon::chrysocyonAnswer SendElement(QChar ch)
+		{
+			if( (m_strContent.length() == 0) && (ch == '\"') )
+			{
+				m_strContent += ch;
+				return seakgChrysocyon::schsOnlyMe;
+			}
+			else if( (m_strContent.length() > 0) && (ch == '\\') && (nR == 0) )
+			{
+				m_strContent += ch;
+				nR = 1;
+				return seakgChrysocyon::schsOnlyMe;
+			}
+			else if( (m_strContent.length() > 0) && (nR != 1) && (ch == '\"') )
+			{
+				m_bStepBack = false;
+				m_strContent += ch;
+				return seakgChrysocyon::schsComplete;
+			}
+			else if( m_strContent.length() > 0 )
+			{
+				m_strContent += ch;
+				nR = 0;
+				return seakgChrysocyon::schsOnlyMe;
+			};
+			
+			return seakgChrysocyon::schsNone;
+		};
+		
+		virtual QString &GetResult()
+		{
+			m_strResult = "string:" + m_strContent;
+			return  m_strResult;
+		};
+
+		virtual void Reset()
+		{
+			m_strContent = "";
+			m_bStepBack = false;
+		};
+
+		virtual bool StepBack()
+		{
+			return m_bStepBack;
+		};
+		
+	private:
+		QString m_strContent;
+		QString m_strResult;
+		bool m_bStepBack;
+		int nR;
+};
+
 template<typename Element, typename ArrayOfElement> class seakgPuppyAnySimbol;
 template <>
 class seakgPuppyAnySimbol<QChar,QString> : public seakgChrysocyon::InterfaceChrysocyonPuppy<QChar, QString>
