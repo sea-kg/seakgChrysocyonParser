@@ -1,0 +1,19 @@
+
+#include "ut_seakgChrysocyonStack.h"
+
+namespace seakgChrysocyon
+{
+	bool AllTests
+	{
+		if( ! seakgChrysocyon::test_seakgChrysocyonStack() )
+		{
+			cout << 
+			return false;
+		}
+		else if ( false )
+			return false;
+		
+		
+	};	
+};
+

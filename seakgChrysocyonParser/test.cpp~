@@ -1,0 +1,22 @@
+
+//#include <iostream.h>
+#include <iostream>
+#include "unittest/unittest_seakgChrysocyonStack.h"
+
+
+
+namespace seakgChrysocyon
+{
+	bool AllTests
+	{
+		std::cout << "\r\n\t --> seakgChrysocyon::test_seakgChrysocyonStack()\r\n";
+		if( ! seakgChrysocyon::test_seakgChrysocyonStack() )
+		{
+			
+			return false;
+		}
+
+		return true;
+	};	
+};
+

@@ -1,71 +1,33 @@
-#ifndef __SEAKGCHRYSOCYONPARSER_H__
-#define __SEAKGCHRYSOCYONPARSER_H__
+#ifndef __SEAKG_CHRYSOCYON_PARSER_H__
+#define __SEAKG_CHRYSOCYON_PARSER_H__
+
+#include "src/enums.h"
+#include "src/interfaces.h"
+#include "src/stack.h"
 
 #include <vector>
 #include <iostream>
 
 namespace seakgChrysocyon
 {
-	//-----------------------------------------------
-	// ENUM ANSWER TYPE
-
-	enum chrysocyonAnswer
-	{
-		schsNone = 0, // точно нет или я отказываюсь
-		schsYetUnknown = 1, //еще не знаю или еще не определился давай дальше
-		schsMaybe = 2, // Может быть мое
-		schsOnlyMe = 3, // Точно мое ( и должно быть только мое )
-		schsComplete = 4, // да я закончил можешь забирать результат
-	};
-	//-----------------------------------------------
-	// READER
-	
-	template<typename Element>
-	class InterfaceChrysocyonReader // interface
-	{
-		public:
-			virtual bool Eof() = 0;
-			virtual bool GetNextElement( Element &, int & ) = 0;
-	};
-	
-	//-----------------------------------------------
-	// PUPPY
-	
-	template<typename Element, typename ArrayOfElement>
-	class InterfaceChrysocyonPuppy // interface
-	{
-		public:
-			virtual chrysocyonAnswer SendElement(Element) = 0;
-			virtual ArrayOfElement &GetResult() = 0;
-			virtual void Reset() = 0;
-			virtual bool StepBack() = 0;
-	};
 	
 	//-----------------------------------------------
 	// PARSER
-
-	enum chrysocyonErrors
-	{
-		chsErrEof = -1, // неожиданные конец файла
-		chsErrUnknownAnswer = -2, // неизвестный ответ
-		chsErrNotFoundPuppy = -3, // ненайден щенок
-		chsErrTooManyPuppiesSayOnlyMe = -4, // более одного щенка заявили на права
-		chsErrTooManyPuppiesSayCompleted = -5, // более одного щенка заявили что закончили
-		chsErrUnknown = -6, // более одного щенка заявили что закончили
-		chsErrNotFoundPuppyComplete = -7 // Ошибка в базовом механизме
-	};
 	
 	template<typename Element, typename ArrayOfElement>
-	class chrysocyonParser : public InterfaceChrysocyonReader<ArrayOfElement> // parser
+	class Parser : public InterfaceChrysocyonReader<ArrayOfElement> // parser
 	{
 		typedef InterfaceChrysocyonReader<Element> Reader;
 		typedef InterfaceChrysocyonPuppy<Element, ArrayOfElement> Puppy;
 		typedef std::vector<InterfaceChrysocyonPuppy<Element, ArrayOfElement> *> ArrayOfPuppy;
 		
-		//typedef seakgChrysocyonContainer<Element> Container;
+		//typedef seakgChrysocyon::Stack<Element> Container;
 		
 		public: 
-			chrysocyonParser(Reader *reader) : m_pReader(reader), m_bStepBack(false) { };
+			Parser(Reader *reader) : m_pReader(reader), m_bStepBack(false) 
+			{ 
+				pPrivateStack = new seakgChrysocyon::Stack<ArrayOfElement>();
+			};
 			void AddPuppy(Puppy* puppy) { m_vectorPuppies.push_back(puppy); };
 			
 			// InterfaceChrysocyonReader
@@ -96,21 +58,9 @@ namespace seakgChrysocyon
 					Element elem;
 					
 					if( m_pReader->GetNextElement(elem, nErrorCode ) )
-					{
-						
-						/*if( !private_ProcessAnswerPuppies_Step1( elem, nOutErrorCode ))
-							return false;
-							
-						ProcessResult res = private_ProcessAnswerPuppies_Step2( result, nOutErrorCode ); 
-						*/
-						
+					{					
 						ProcessResult res = privateOneStep( elem, result, nOutErrorCode );
-						
-						//if( res == procError ) return false;
-						//if( res == procFinish ) return true;
-						 
 						if( ifReturn(res) ) return ( res == procFinish );
-						
 					}
 					else
 					{
@@ -122,12 +72,11 @@ namespace seakgChrysocyon
 				
 				if( m_vectorTempPuppies.size() == 1 )
 				{
-					result = m_vectorTempPuppies[0]->GetResult();
+					m_vectorTempPuppies[0]->GetResult(pPrivateStack);
+					pPrivateStack->Pop(result);
 					return true;
 				}
- 
 				
-//				std::cout << "after while\n";
 				if( m_pReader->Eof() )
 				{
 					nOutErrorCode = chsErrEof;
@@ -140,6 +89,11 @@ namespace seakgChrysocyon
 		private:
 			
 			Reader * m_pReader;
+			
+			bool m_bStepBack;
+			Element m_elementStore;
+			
+			seakgChrysocyon::Stack<ArrayOfElement> *pPrivateStack;
 			
 			ArrayOfPuppy m_vectorPuppies; 
 			ArrayOfPuppy m_vectorTempPuppies;
@@ -171,7 +125,6 @@ namespace seakgChrysocyon
 				for(unsigned int i = 0; i < m_vectorTempPuppies.size(); i++)
 				{
 					seakgChrysocyon::chrysocyonAnswer answer = m_vectorTempPuppies[i]->SendElement(elem);
-					//std::cout << (int)answer << "\n";
 					if( answer == schsNone )
 						{ /* nothing */ }
 					else if( answer == schsYetUnknown || answer == schsMaybe )
@@ -206,7 +159,10 @@ namespace seakgChrysocyon
 				{
 					
 					nOutErrorCode = 0;
-					result = m_vectorCompletePuppies[0]->GetResult();
+					
+					m_vectorCompletePuppies[0]->GetResult(pPrivateStack);
+					
+					pPrivateStack->Pop(result);
 					m_bStepBack = m_vectorCompletePuppies[0]->StepBack();
 					ResetAllPuppy();
 					return procFinish;
@@ -229,19 +185,16 @@ namespace seakgChrysocyon
 				}
 				else if( nPuppyOnlyMe == 0 && nPuppyComplete == 0 && nBufPuppy == 0 )
 				{
-					//std::cout << " not found puppy \n";
 					nOutErrorCode = chsErrNotFoundPuppy;
 					return procError;
 				}
 				else if( nPuppyOnlyMe > 1 && nPuppyComplete == 0 && nBufPuppy == 0 )
 				{
-					//std::cout << " too many only me \n";
 					nOutErrorCode = chsErrTooManyPuppiesSayOnlyMe;
 					return procError;
 				}
 				else if( nPuppyOnlyMe == 0 && nPuppyComplete > 1 && nBufPuppy == 0 )
 				{
-					//std::cout << " too many completed \n";
 					nOutErrorCode = chsErrTooManyPuppiesSayCompleted;
 					return procError;
 				};
@@ -261,14 +214,9 @@ namespace seakgChrysocyon
 				
 				return private_ProcessAnswerPuppies_Step2( result, nOutErrorCode );
 			};
-			
-			
-			
-			bool m_bStepBack;
-			Element m_elementStore;
 	};
 	
 	//-----------------------------------------------
 };
 
-#endif // __SEAKGCHRYSOCYONPARSER_H__
+#endif // __SEAKG_CHRYSOCYON_PARSER_H__

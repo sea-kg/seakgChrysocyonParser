@@ -1,0 +1,57 @@
+template<class T> ElemStack
+{
+  public:
+
+    ElemStack(T *pElem, 
+              ElemStack<T> *pElemPrev,
+              ElemStack<T> *pElemNext)
+    {
+      m_pElem = pElem;
+      m_pElemPrev = pElemPrev;
+      m_pElemNext = pElemNext; 
+    };
+
+    T *getPointer() { return m_pElem; };
+    ElemStack<T> *getPrevious() { return m_pElemPrev; };
+    ElemStack<T> *getNext() { return m_pElemPrev; };
+    void setPrevious(ElemStack<T> *pE) { m_pElemPrev = pE; };
+    void setNext(ElemStack<T> *pE) { m_pElemPrev = pE; };
+
+  private:
+    T *m_pElem;
+    ElemStack<T> *m_pElemPrev;
+    ElemStack<T> *m_pElemNext;
+};
+
+template<class ArrayElement>
+class seakgChrysocyonStack
+{
+  public:
+    seakgChrysocyonStack() 
+    {
+      first = NULL;
+      current = NULL;
+      last = NULL;
+      count = 0;
+    };
+    void Push(ArrayElement *el) 
+    {
+       ElemStack<ArrayElement> *pE;
+       if( count == 0 )
+       {
+         pE = new ElemStack<ArrayElement>(el, NULL, NULL);
+         first = pE;
+       }
+       first = 
+       last = pE;
+       count++;
+    };
+    ArrayElement *Pop() 
+    {
+      
+      count--;
+    };
+  private:
+    ElemStack<ArrayElement> * current, first, last;
+    int count;
+}

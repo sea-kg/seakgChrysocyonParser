@@ -1,0 +1,16 @@
+
+
+#include "../seakgChrysocyonStack.h"
+
+namespace seakgChrysocyon
+{
+
+	bool test_seakgChrysocyonStack()
+	{
+
+
+		return true;
+	};
+};
+
+

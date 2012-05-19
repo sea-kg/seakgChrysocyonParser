@@ -1,8 +1,12 @@
 // place your code here
 #include <iostream>
 
+#include "../seakgChrysocyonParser/seakgChrysocyonStack.h"
 #include "../seakgChrysocyonParser/qt.h"
-//#include "../seakgChrysocyonParser/src/test.cpp"
+
+//#include "seakgExampleParser.h"
+
+//class seakgChrysocyon::seakgChrysocyonContainer<char>;
 
 typedef seakgChrysocyon::Parser<QChar,QString> CharParser;
 typedef seakgReaderFromQString<QChar> CharReader;
@@ -38,6 +42,32 @@ void init_layer_first( CharParser *pParser )
 
 int main()
 {
+	/*
+	std::cout << "\r\n -- test chrysocyon.stack -- \r\n";
+	seakgChrysocyon::Stack<QString> *stack1 = NULL;
+	stack1 = new seakgChrysocyon::Stack<QString>();
+	
+	stack1->Push( "A1" );
+	stack1->Push( "B1" );
+	stack1->Push( "C1" );
+	
+	std::cout << stack1->getCount() << "\r\n";
+	
+	while( stack1->getCount() > 0 )
+	{
+		QString strTemp;
+		 
+		stack1->Pop(strTemp);
+		
+		
+		std::cout << "[" << strTemp.toStdString() << "]\r\n";
+		
+	};
+	
+	return 0;
+	*/
+	
+	
 	QChar ch;
 	
 	QString strTest = "func add123( int a = 123, int b = 989, string str = \" \\\"dfsdf\\\\ \" ) { "

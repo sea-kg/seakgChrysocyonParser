@@ -38,13 +38,20 @@ class seakgPuppyNumber<QChar,QString> : public seakgChrysocyon::InterfaceChrysoc
 			return seakgChrysocyon::schsNone;
 		};
 		
-		virtual QString &GetResult()
+		virtual void GetResult( seakgChrysocyon::Stack<QString> *pStackResult )
+		{
+			pStackResult->Push( QString("number:" + m_strContent) );
+		};
+		
+		/*
+		virtual QString &GetResult( ) // seakgChrysocyon::Stack<QString> *pStackResult)
 		{
 			//std::cout << " seakgPuppyNumber::GetResult [" << m_strContent.toStdString() << "] \n";
-			
+			//pStackResult->Push();
 			m_strResult = "number:" + m_strContent;
 			return m_strResult;
 		};
+		*/
 		
 		virtual void Reset()
 		{
@@ -99,18 +106,24 @@ class seakgPuppyName<QChar,QString> : public seakgChrysocyon::InterfaceChrysocyo
 			return seakgChrysocyon::schsNone;
 		};
 		
+		virtual void GetResult( seakgChrysocyon::Stack<QString> *pStackResult )
+		{
+			pStackResult->Push( QString("name:" + m_strContent) );
+		};
+		
+		/*
 		virtual QString &GetResult()
 		{
-			m_strResult = "name:" + m_strContent;
+			m_strResult = ;
 			return  m_strResult;
 		};
-
+		*/
 		virtual void Reset()
 		{
 			m_strContent = "";
 			m_bStepBack = false;
 		};
-
+		
 		virtual bool StepBack()
 		{
 			return true;
@@ -160,11 +173,17 @@ class seakgPuppyStringInDoubleQuotes<QChar,QString> : public seakgChrysocyon::In
 			return seakgChrysocyon::schsNone;
 		};
 		
+		virtual void GetResult( seakgChrysocyon::Stack<QString> *pStackResult )
+		{
+			pStackResult->Push( QString("string:" + m_strContent) );
+		};
+		/*
 		virtual QString &GetResult()
 		{
 			m_strResult = "string:" + m_strContent;
 			return  m_strResult;
 		};
+*/
 
 		virtual void Reset()
 		{
@@ -211,11 +230,17 @@ class seakgPuppyAnySimbol<QChar,QString> : public seakgChrysocyon::InterfaceChry
 			return seakgChrysocyon::schsNone;
 		};
 		
+		virtual void GetResult( seakgChrysocyon::Stack<QString> *pStackResult )
+		{
+			pStackResult->Push( QString("{" + m_strContent + "}") );
+		};
+		/*
 		virtual QString &GetResult()
 		{
-			m_strResult = "{" + m_strContent + "}"; 
+			m_strResult = ; 
 			return m_strContent;
 		};
+		*/
 		
 		virtual void Reset()
 		{
