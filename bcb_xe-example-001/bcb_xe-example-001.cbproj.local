@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2012.05.22 10:03:06.966,=C:\Users\eso\Documents\RAD Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2012.05.22 10:03:33.773,C:\Projects\github\seakgChrysocyonParser\bcb_xe-example-001\main.cpp=C:\Users\eso\Documents\RAD Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2012.05.22 10:03:50.368,C:\Projects\github\seakgChrysocyonParser\bcb_xe-example-001\bcb_xe-example-001.cbproj=C:\Users\eso\Documents\RAD Studio\Projects\Project1.cbproj</Transaction>
+  </Transactions>
+</BorlandProject>

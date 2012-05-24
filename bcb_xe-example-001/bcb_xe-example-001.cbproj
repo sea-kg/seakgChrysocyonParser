@@ -1,0 +1,143 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{38402DE1-6195-42EC-A496-8ABAD54B8511}</ProjectGuid>
+			<ProjectVersion>12.3</ProjectVersion>
+			<Base>True</Base>
+			<Config Condition="'$(Config)'==''">Release</Config>
+			<Platform>Win32</Platform>
+			<AppType>Console</AppType>
+			<FrameworkType>None</FrameworkType>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+			<Cfg_1>true</Cfg_1>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+			<Cfg_2>true</Cfg_2>
+			<CfgParent>Base</CfgParent>
+			<Base>true</Base>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Base)'!=''">
+			<ProjectType>CppConsoleApplication</ProjectType>
+			<OutputExt>exe</OutputExt>
+			<PackageImports>vclx.bpi;vcl.bpi;rtl.bpi;vclactnband.bpi;xmlrtl.bpi;bcbsmp.bpi;VclSmp.bpi;vclimg.bpi;svnui.bpi;svn.bpi;bdertl.bpi;TeeUI.bpi;TeeDB.bpi;Tee.bpi;vcldb.bpi;dbrtl.bpi;vcldbx.bpi;vcltouch.bpi;dsnap.bpi;dsnapcon.bpi;vclib.bpi;ibxpress.bpi;adortl.bpi;IndyCore.bpi;IndySystem.bpi;IndyProtocols.bpi;inet.bpi;intrawebdb_110_150.bpi;Intraweb_110_150.bpi;vclie.bpi;websnap.bpi;webdsnap.bpi;inetdb.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;vclribbon.bpi;dbexpress.bpi;DbxCommonDriver.bpi;DataSnapIndy10ServerTransport.bpi;DataSnapProviderClient.bpi;DbxClientDriver.bpi;DataSnapClient.bpi;dbxcds.bpi;DataSnapServer.bpi;AzureCloud.bpi;DBXInterBaseDriver.bpi;DBXMySQLDriver.bpi;DBXFirebirdDriver.bpi;DBXSybaseASEDriver.bpi;DBXSybaseASADriver.bpi;DBXOracleDriver.bpi;DBXMSSQLDriver.bpi;DBXInformixDriver.bpi;DBXDb2Driver.bpi;Rave90VCL.bpi;bcbie.bpi;GFDLIBXE.bpi;O408_r.bpi;AcrobatReader.bpi;O408br.bpi;G114_R140.bpi;WinMediaPlayer.bpi;S1VCLX.bpi;stxXptPkg.bpi;S1RegCtl.bpi;S1DbCtl.bpi;S1Grids.bpi;h4defctl.bpi;H4DocPageCtl.bpi;h4docctl.bpi;H4FieldCtl.bpi;H4Grids.bpi;H4CatCtl.bpi;HiDATreeViewPkg.bpi;stxTreeViewPkg.bpi</PackageImports>
+			<LinkPackageStatics>rtl.lib;vcl.lib</LinkPackageStatics>
+			<AllPackageLibs>rtl.lib;vcl.lib</AllPackageLibs>
+			<BPILibOutputDir>temp</BPILibOutputDir>
+			<BCC_OutputDir>temp</BCC_OutputDir>
+			<DynamicRTL>true</DynamicRTL>
+			<TASM_OutputDir>temp</TASM_OutputDir>
+			<Defines>NDEBUG;$(Defines)</Defines>
+			<Multithreaded>true</Multithreaded>
+			<_TCHARMapping>wchar_t</_TCHARMapping>
+			<ILINK_MapFileType>Publics</ILINK_MapFileType>
+			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE</DCC_UnitAlias>
+			<IntermediateOutputDir>temp</IntermediateOutputDir>
+			<FinalOutputDir>bin\</FinalOutputDir>
+			<BCC_wpar>false</BCC_wpar>
+			<BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+			<BCC_ExtendedErrorInfo>true</BCC_ExtendedErrorInfo>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<BCC_StackFrames>true</BCC_StackFrames>
+			<DynamicRTL>true</DynamicRTL>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
+			<DCC_Define>DEBUG</DCC_Define>
+			<TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+			<TASM_Debugging>Full</TASM_Debugging>
+		</PropertyGroup>
+		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
+			<BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+			<BCC_NoAutodependency>false</BCC_NoAutodependency>
+			<TASM_Debugging>None</TASM_Debugging>
+		</PropertyGroup>
+		<ItemGroup>
+			<CppCompile Include="main.cpp">
+				<BuildOrder>0</BuildOrder>
+			</CppCompile>
+			<BuildConfiguration Include="Release">
+				<Key>Cfg_2</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Base">
+				<Key>Base</Key>
+			</BuildConfiguration>
+			<BuildConfiguration Include="Debug">
+				<Key>Cfg_1</Key>
+				<CfgParent>Base</CfgParent>
+			</BuildConfiguration>
+		</ItemGroup>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Cpp.Targets')" Project="$(BDS)\Bin\CodeGear.Cpp.Targets"/>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+		<ProjectExtensions>
+			<Borland.Personality>CPlusPlusBuilder.Personality.12</Borland.Personality>
+			<Borland.ProjectType>CppConsoleApplication</Borland.ProjectType>
+			<BorlandProject>
+				<CPlusPlusBuilder.Personality>
+					<VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
+						<VersionInfo Name="MajorVer">1</VersionInfo>
+						<VersionInfo Name="MinorVer">0</VersionInfo>
+						<VersionInfo Name="Release">0</VersionInfo>
+						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Debug">False</VersionInfo>
+						<VersionInfo Name="PreRelease">False</VersionInfo>
+						<VersionInfo Name="Special">False</VersionInfo>
+						<VersionInfo Name="Private">False</VersionInfo>
+						<VersionInfo Name="DLL">False</VersionInfo>
+						<VersionInfo Name="Locale">1049</VersionInfo>
+						<VersionInfo Name="CodePage">1251</VersionInfo>
+					</VersionInfo>
+					<VersionInfoKeys>
+						<VersionInfoKeys Name="CompanyName"/>
+						<VersionInfoKeys Name="FileDescription"/>
+						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="InternalName"/>
+						<VersionInfoKeys Name="LegalCopyright"/>
+						<VersionInfoKeys Name="LegalTrademarks"/>
+						<VersionInfoKeys Name="OriginalFilename"/>
+						<VersionInfoKeys Name="ProductName"/>
+						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="Comments"/>
+					</VersionInfoKeys>
+					<Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\designide150.bpl">Embarcadero Designer IDE Package</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects.bin\O408_r150.bpl">TurboPower Orpheus 4.08 runtime package - VCL150</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects.bin\O408br150.bpl">TurboPower Orpheus 4.08 data-aware runtime package - VCL150</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\S1VCLX.bpl">stxBasePkg</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects.bin\stxXptPkg.bpl">stxXptPkg</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\S1RegCtl.bpl">S1RegCtl Package</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\S1DBCtl.bpl">S1DBCtl Components</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\H4DefCtl.bpl">h4defctl</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\H4DocPageCtl.bpl">H4DocPageCtl</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\H4CatCtl.bpl">H4CatCtl</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\bcboffice2k150.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\bcbofficexp150.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dcloffice2k150.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="$(BDSBIN)\dclofficexp150.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\GFDSTD60.BPL">File C:\Projects\ACTApro.XE\bin\GFDSTD60.BPL not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\OIPKG6.BPL">File C:\Projects\ACTApro.XE\bin\OIPKG6.BPL not found</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\SynEdit_RXE.bpl">SynEdit component suite runtime DXE</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\ILCORP60.BPL">File C:\Projects\ACTApro.XE\bin\ILCORP60.BPL not found</Excluded_Packages>
+					</Excluded_Packages>
+					<ProjectProperties>
+						<ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
+						<ProjectProperties Name="ManagePaths">True</ProjectProperties>
+						<ProjectProperties Name="VerifyPackages">True</ProjectProperties>
+					</ProjectProperties>
+				</CPlusPlusBuilder.Personality>
+				<Platforms>
+					<Platform value="Win32">True</Platform>
+				</Platforms>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>
