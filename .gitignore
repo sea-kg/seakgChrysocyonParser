@@ -10,3 +10,13 @@
 *.lai
 *.la
 *.a
+
+# cbuilder trash
+*.obj
+*.local
+*.pch
+*.#00
+*.ilc
+*.ild
+*.ilf
+*.tds
