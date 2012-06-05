@@ -1,0 +1,4 @@
+<project name="example" executer="chrysocyon">
+	<lang file="example/lang/lang.chrylang"/>
+	<main file="example/src/main.code"/>
+</project>
