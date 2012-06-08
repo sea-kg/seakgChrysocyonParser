@@ -3,8 +3,8 @@
 
 
 // "C++ Buidler XE" :  __BORLANDC__ = 0x0631
-// "GCC" : _GNUC_
-
+// "GCC" : _GNUC_ 
+// http://www.gregroelofs.com/os2-tip1/version.html
 
 #ifdef __BORLANDC__ && ( __BORLANDC__ > 0x0631)
 
