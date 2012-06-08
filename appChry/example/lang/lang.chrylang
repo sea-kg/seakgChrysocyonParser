@@ -5,19 +5,23 @@ include file mypuppy1.code;
 include file mypuppy2.code;
 
 //declare gibrid
-layer_first is object type of class and new type of object. // analog cpp: class layer_first;
-init is object type of public method. // analog cpp: layer
-add init into layerfirst.
+'layer_first' is object type of class and can be type of object. // analog cpp: class layer_first;
+'init' is object type of public method. // analog cpp: layer
+add object 'init' into layerfirst.
 
 'count' is object type of private variable and add it into layer_first.
 'var1' is object type of private integer and add it into layer_first.
 'name' is object type of public string and add it into layer_first.
 
+// replace, rename, remove, copy and any object 'init' from 'layer_first'. (if not fix )
+// operation with objects: 
 
 
-what init do:
+what 'init' do:
 first: 
 input layer_first is object type of layer. 
+output 
+
 ouput none.
 
 
@@ -33,8 +37,9 @@ input any parametrs.
 output value of integer.
 
 
-begin comment:
-complete comment.
+// 
+
+/* */
 
 
 create object 'reader1' as 'reader'.
