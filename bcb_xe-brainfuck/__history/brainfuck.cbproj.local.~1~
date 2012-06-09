@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.458,=C:\Users\eso\Documents\RAD Studio\Projects\Project1.res</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.496,=C:\Users\eso\Documents\RAD Studio\Projects\Unit2.cpp</Transaction>
+    <Transaction>2012.06.09 09:56:02.751,=C:\Users\eso\Documents\RAD Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2012.06.09 09:56:45.457,C:\Projects\github\seakgChrysocyonParser\bcb_xe-brainfuck\main.cpp=C:\Users\eso\Documents\RAD Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2012.06.09 09:56:52.863,C:\Projects\github\seakgChrysocyonParser\bcb_xe-brainfuck\brainfuck.cbproj=C:\Users\eso\Documents\RAD Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>2012.06.09 10:06:38.263,=C:\Projects\github\seakgChrysocyonParser\bcb_xe-brainfuck\Unit1.cpp</Transaction>
+    <Transaction>2012.06.09 10:06:56.969,C:\Projects\github\seakgChrysocyonParser\bcb_xe-brainfuck\puppies_brainfuck.cpp=C:\Projects\github\seakgChrysocyonParser\bcb_xe-brainfuck\Unit1.cpp</Transaction>
+    <Transaction>2012.06.09 10:06:56.969,C:\Projects\github\seakgChrysocyonParser\bcb_xe-brainfuck\puppies_brainfuck.h=C:\Projects\github\seakgChrysocyonParser\bcb_xe-brainfuck\Unit1.h</Transaction>
+  </Transactions>
+</BorlandProject>
