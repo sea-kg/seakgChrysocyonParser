@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.773,C:\Users\eso\Documents\RAD Studio\Projects\File1.cpp=C:\Projects\github\seakgChrysocyonParser\bcb_xe-example-001\main.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.966,=C:\Users\eso\Documents\RAD Studio\Projects\File1.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.368,C:\Users\eso\Documents\RAD Studio\Projects\Project1.cbproj=C:\Projects\github\seakgChrysocyonParser\bcb_xe-example-001\bcb_xe-example-001.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.773,C:\Projects\github\seakgChrysocyonParser\bcb_xe-example-001\main.cpp=C:\Users\eso\Documents\RAD Studio\Projects\File1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.368,C:\Projects\github\seakgChrysocyonParser\bcb_xe-example-001\bcb_xe-example-001.cbproj=C:\Users\eso\Documents\RAD Studio\Projects\Project1.cbproj</Transaction>
   </Transactions>
 </BorlandProject>
