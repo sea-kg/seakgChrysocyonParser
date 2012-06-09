@@ -18,12 +18,9 @@ typedef seakgReaderFromUnicodeString<wchar_t> CharReader;
 
 
 typedef brainfuck::puppyMain<wchar_t,wchar_t> PuppyMain;
+typedef brainfuck::puppyWhile<wchar_t,wchar_t> PuppyWhile;
 
 
-typedef seakgPuppyNumber<wchar_t,UnicodeString> PuppyNumber;
-typedef seakgPuppyName<wchar_t,UnicodeString> PuppyName;
-typedef seakgPuppyAnySimbol<wchar_t,UnicodeString> PuppyAnySimbol;
-typedef seakgPuppyStringInDoubleQuotes<wchar_t,UnicodeString> PuppyStringInDoubleQuotes;
 //typedef seakgPuppyLine<QChar,QString> PuppyLine;
 
 //----------------------------------------------------------------------------
@@ -32,6 +29,7 @@ void init_layer_first( CharParser *pParser )
 {
 
   pParser->AddPuppy( new PuppyMain(g_pCore) );
+  pParser->AddPuppy( new PuppyWhile(g_pCore) );
 
 //	pParser->AddPuppy( new PuppyNumber() );
 //	pParser->AddPuppy( new PuppyName() );
@@ -55,13 +53,20 @@ void init_layer_first( CharParser *pParser )
 #pragma argsused
 int _tmain(int argc, _TCHAR* argv[])
 {
-  if( argc == 2)
+  if( argc == 2 || argc == 3)
   {
     UnicodeString filename(argv[1]);
     TStringList *list = new TStringList();
     list->LoadFromFile(filename);
     g_pCore = new brainfuck::core();
-    g_pCore->Debug = false;
+
+    if(argc == 3)
+    {
+      UnicodeString debug(argv[2]);
+      if(debug == "debug") g_pCore->Debug = true;
+      else g_pCore->Debug = false;
+    }
+
     CharReader *pReader = new CharReader();
    	pReader->setString( list->Text );
     CharParser *pParserLayerFirst = new CharParser(pReader);
@@ -85,7 +90,7 @@ int _tmain(int argc, _TCHAR* argv[])
   }
   else
   {
-    wcout << "Useage: brainfuck <filename>\r\n";
+    wcout << "Useage: brainfuck <filename> - for release\r\nor brainfuck <filename> debug - for debug\r\n";
   };
   return 0;
 }

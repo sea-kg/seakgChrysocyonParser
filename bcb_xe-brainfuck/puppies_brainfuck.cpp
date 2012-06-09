@@ -21,8 +21,7 @@ namespace brainfuck
   void core::next()
   {
     m_nPos++;
-
-    if(m_nPos > m_vSlots.size() - 1 )
+    if(m_nPos > (m_vSlots.size() - 1))
     {
       int n = 0;
       m_vSlots.push_back(n);
@@ -120,19 +119,9 @@ namespace brainfuck
       if( m_pCore->Debug ) m_chResult = chTemp; else m_chResult = 0;
       return seakgChrysocyon::schsComplete;
     }
-    else if( ch == '[' )
-    {
-      if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
-      return seakgChrysocyon::schsComplete;
-    }
-    else if( ch == 'p' )
+    else if( ch == 's' )
     {
       m_pCore->print_state();
-      if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
-      return seakgChrysocyon::schsComplete;
-    }
-    else if( ch == ']' )
-    {
       if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
       return seakgChrysocyon::schsComplete;
     }
@@ -142,6 +131,11 @@ namespace brainfuck
       return seakgChrysocyon::schsComplete;
     }
     else if( ch == '\n' )
+    {
+      if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
+      return seakgChrysocyon::schsComplete;
+    }
+    else if( ch == ' ' )
     {
       if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
       return seakgChrysocyon::schsComplete;
@@ -174,6 +168,125 @@ namespace brainfuck
     return false;
   };
 //------------------------------------------------------------------------------------
+
+  template<>
+  puppyWhile<wchar_t,wchar_t>::puppyWhile(brainfuck::core *pCore)
+  : m_pCore(pCore)
+  {
+    m_chResult = 0;
+    m_nWhile = 0;
+    m_strWhile = "";
+  };
+
+  //------------------------------------------------------------------------------------
+
+  template<>
+  seakgChrysocyon::chrysocyonAnswer puppyWhile<wchar_t, wchar_t>::SendElement(wchar_t ch)
+  {
+    if( (ch == '[') && (m_nWhile == 0) )
+    {
+      m_nWhile = m_nWhile + 1;
+      m_strWhile = L"";
+//      wcout << "\r\n 1) if( (ch == '[') && (m_nWhile == 0) \r\n";
+
+      if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
+
+      return seakgChrysocyon::schsOnlyMe;
+    }
+    else if( (ch == '[') && (m_nWhile > 0) )
+    {
+      m_nWhile = m_nWhile + 1;
+
+//      wcout << "\r\n 2) if ( (ch == '[') && (m_nWhile > 0) ) \r\n";
+      if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
+      return seakgChrysocyon::schsOnlyMe;
+    }
+    else if( ch != ']' && m_nWhile > 0 )
+    {
+      m_strWhile = m_strWhile + UnicodeString(ch);
+
+      //wcout << "\r\n 3) if( ch != ']' && m_nWhile > 0 ) \r\n";
+
+      //wcout << "\r\n" << m_strWhile.c_str() << "\r\n";
+      if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
+      return seakgChrysocyon::schsOnlyMe;
+    }
+    else if( ch == ']' && m_nWhile > 1 )
+    {
+      m_strWhile = m_strWhile + UnicodeString(ch);
+      if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
+      return seakgChrysocyon::schsOnlyMe;
+    }
+    else if( (ch == ']') && (m_nWhile == 1) )
+    {
+      m_nWhile--;
+
+      // run block
+      m_strResultWhile = "";
+      while( m_pCore->get() != 0 )
+      {
+        CharReader *pReader = new CharReader();
+        pReader->setString( m_strWhile );
+
+        CharParser *pParser = new CharParser(pReader);
+        typedef brainfuck::puppyMain<wchar_t,wchar_t> PuppyMain;
+        typedef brainfuck::puppyWhile<wchar_t,wchar_t> PuppyWhile;
+
+        pParser->AddPuppy( new PuppyMain(m_pCore) );
+        pParser->AddPuppy( new PuppyWhile(m_pCore) );
+
+        while( ! pParser->Eof() )
+        {
+          wchar_t chResult;
+          int err;
+
+          if( pParser->GetNextElement( chResult, err ) )
+          {
+            if(chResult != 0) m_strResultWhile += chResult;
+          }
+          else
+          {
+            return seakgChrysocyon::schsNone;
+          }
+        };
+      }
+      if( m_pCore->Debug ) m_chResult = ch; else m_chResult = 0;
+      return seakgChrysocyon::schsComplete;
+    };
+
+    return seakgChrysocyon::schsNone;
+  };
+
+  //------------------------------------------------------------------------------------
+
+  template<>
+  void puppyWhile<wchar_t, wchar_t>::GetResult( seakgChrysocyon::Stack<wchar_t> *pStackResult )
+  {
+    for(int i = 1; i <= m_strResultWhile.Length(); i++ )
+    {
+      wchar_t ch = m_strResultWhile[i];
+      pStackResult->Push( ch );
+    };
+    m_strResultWhile = L"";
+  };
+
+  //------------------------------------------------------------------------------------
+
+  template<>
+  void puppyWhile<wchar_t, wchar_t>::Reset()
+  {
+    m_chResult = ' ';
+  };
+
+  //------------------------------------------------------------------------------------
+
+  template<>
+  bool puppyWhile<wchar_t, wchar_t>::StepBack()
+  {
+    return false;
+  };
+//------------------------------------------------------------------------------------
+
 
 /* schsNone = 0, // точно нет или я отказываюсь
 		schsYetUnknown = 1, //еще не знаю или еще не определился давай дальше

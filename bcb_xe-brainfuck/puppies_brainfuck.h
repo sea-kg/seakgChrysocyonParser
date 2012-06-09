@@ -8,6 +8,9 @@
 #include <conio.h>
 #include "../seakgChrysocyonParser/bcb_xe.h"
 
+typedef seakgChrysocyon::Parser<wchar_t,wchar_t> CharParser;
+typedef seakgReaderFromUnicodeString<wchar_t> CharReader;
+
 namespace brainfuck
 {
   class core
@@ -25,7 +28,7 @@ namespace brainfuck
       bool Debug;
     private:
       vector<int> m_vSlots;
-      int m_nPos;
+      unsigned int m_nPos;
   };
 
 
@@ -43,6 +46,25 @@ namespace brainfuck
     private:
       wchar_t m_chResult;
       brainfuck::core *m_pCore;
+  };
+
+  template<typename Element, typename ArrayOfElement>
+  class puppyWhile : public seakgChrysocyon::InterfaceChrysocyonPuppy<Element,ArrayOfElement>
+  {
+    public:
+      puppyWhile(brainfuck::core *pCore);
+      // InterfaceChrysocyonPuppy
+      virtual seakgChrysocyon::chrysocyonAnswer SendElement(Element ch);
+      virtual void GetResult( seakgChrysocyon::Stack<ArrayOfElement> *pStackResult );
+      virtual void Reset();
+      virtual bool StepBack();
+
+    private:
+      wchar_t m_chResult;
+      brainfuck::core *m_pCore;
+      UnicodeString m_strWhile;
+      UnicodeString m_strResultWhile;
+      int m_nWhile;
   };
 
 /*
