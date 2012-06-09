@@ -1,3 +1,64 @@
+#lang=chrysocyon // #lang="cpplang.chrysocyon"
+
+include file mypuppy.code;
+include file mypuppy1.code;
+include file mypuppy2.code;
+
+//declare gibrid
+'layer_first' is object type of class and can be type of object. // analog cpp: class layer_first;
+'init' is object type of public method. // analog cpp: layer
+add object 'init' into layerfirst.
+
+'count' is object type of private variable and add it into layer_first.
+'var1' is object type of private integer and add it into layer_first.
+'name' is object type of public string and add it into layer_first.
+
+// replace, rename, remove, copy and any object 'init' from 'layer_first'. (if not fix )
+// operation with objects: 
+
+
+what 'init' do:
+first: 
+input layer_first is object type of layer. 
+output 
+
+ouput none.
+
+
+
+layer_first@
+
+complete.
+fix object layer_first.
+
+
+begin main:
+input any parametrs.
+output value of integer.
+
+
+// 
+
+/* */
+
+
+create object 'reader1' as 'reader'.
+create object 'layer1' as 'layer'.
+
+one comment: inicialization.
+
+call method 'init' from 'layer_first' with parameters input layer1, output none.
+
+
+
+create object layer1 as layer_first.
+
+
+
+
+
+complete main.
+
 
 main()
 {
