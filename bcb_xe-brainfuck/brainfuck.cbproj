@@ -22,6 +22,7 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
+			<DCC_MapFile>2</DCC_MapFile>
 			<ProjectType>CppConsoleApplication</ProjectType>
 			<PackageImports>vclx.bpi;vcl.bpi;rtl.bpi;vclactnband.bpi;xmlrtl.bpi;bcbsmp.bpi;VclSmp.bpi;vclimg.bpi;svnui.bpi;svn.bpi;bdertl.bpi;TeeUI.bpi;TeeDB.bpi;Tee.bpi;vcldb.bpi;dbrtl.bpi;vcldbx.bpi;vcltouch.bpi;dsnap.bpi;dsnapcon.bpi;vclib.bpi;ibxpress.bpi;adortl.bpi;IndyCore.bpi;IndySystem.bpi;IndyProtocols.bpi;inet.bpi;intrawebdb_110_150.bpi;Intraweb_110_150.bpi;vclie.bpi;websnap.bpi;webdsnap.bpi;inetdb.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;vclribbon.bpi;dbexpress.bpi;DbxCommonDriver.bpi;DataSnapIndy10ServerTransport.bpi;DataSnapProviderClient.bpi;DbxClientDriver.bpi;DataSnapClient.bpi;dbxcds.bpi;DataSnapServer.bpi;AzureCloud.bpi;DBXInterBaseDriver.bpi;DBXMySQLDriver.bpi;DBXFirebirdDriver.bpi;DBXSybaseASEDriver.bpi;DBXSybaseASADriver.bpi;DBXOracleDriver.bpi;DBXMSSQLDriver.bpi;DBXInformixDriver.bpi;DBXDb2Driver.bpi;Rave90VCL.bpi;bcbie.bpi;GFDLIBXE.bpi;O408_r.bpi;O408br.bpi;WinMediaPlayer.bpi;AcrobatReader.bpi</PackageImports>
 			<LinkPackageStatics>rtl.lib;vcl.lib</LinkPackageStatics>
@@ -33,7 +34,6 @@
 			<DCC_HppOutput>temp</DCC_HppOutput>
 			<BPILibOutputDir>temp</BPILibOutputDir>
 			<BCC_OutputDir>temp</BCC_OutputDir>
-			<DynamicRTL>true</DynamicRTL>
 			<TASM_OutputDir>temp</TASM_OutputDir>
 			<Defines>NDEBUG;$(Defines)</Defines>
 			<Multithreaded>true</Multithreaded>
@@ -120,6 +120,7 @@
 						<Excluded_Packages Name="$(BDSBIN)\designide150.bpl">Embarcadero Designer IDE Package</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects.bin\O408_r150.bpl">TurboPower Orpheus 4.08 runtime package - VCL150</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects.bin\O408br150.bpl">TurboPower Orpheus 4.08 data-aware runtime package - VCL150</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE.wc\bin\G114_D140.bpl">File C:\Projects\ACTApro.XE.wc\bin\G114_D140.bpl not found</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\S1VCLX.bpl">stxBasePkg</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects.bin\stxXptPkg.bpl">stxXptPkg</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\S1RegCtl.bpl">S1RegCtl Package</Excluded_Packages>
