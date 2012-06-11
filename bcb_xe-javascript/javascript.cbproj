@@ -53,14 +53,23 @@
 			<TASM_Debugging>Full</TASM_Debugging>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DynamicRTL>false</DynamicRTL>
 			<BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
 			<BCC_DisableOptimizations>true</BCC_DisableOptimizations>
 			<BCC_NoAutodependency>false</BCC_NoAutodependency>
 			<TASM_Debugging>None</TASM_Debugging>
 		</PropertyGroup>
 		<ItemGroup>
+			<CppCompile Include="javascript_core.cpp">
+				<DependentOn>javascript_core.h</DependentOn>
+				<BuildOrder>2</BuildOrder>
+			</CppCompile>
 			<CppCompile Include="main.cpp">
 				<BuildOrder>0</BuildOrder>
+			</CppCompile>
+			<CppCompile Include="puppies_JavaScript_firstlayer.cpp">
+				<DependentOn>puppies_JavaScript_firstlayer.h</DependentOn>
+				<BuildOrder>1</BuildOrder>
 			</CppCompile>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
@@ -112,6 +121,7 @@
 						<Excluded_Packages Name="$(BDSBIN)\designide150.bpl">Embarcadero Designer IDE Package</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects.bin\O408_r150.bpl">TurboPower Orpheus 4.08 runtime package - VCL150</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects.bin\O408br150.bpl">TurboPower Orpheus 4.08 data-aware runtime package - VCL150</Excluded_Packages>
+						<Excluded_Packages Name="C:\Projects\ACTApro.XE.wc\bin\G114_D140.bpl">File C:\Projects\ACTApro.XE.wc\bin\G114_D140.bpl not found</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\S1VCLX.bpl">stxBasePkg</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects.bin\stxXptPkg.bpl">stxXptPkg</Excluded_Packages>
 						<Excluded_Packages Name="C:\Projects\ACTApro.XE\bin\S1RegCtl.bpl">S1RegCtl Package</Excluded_Packages>
