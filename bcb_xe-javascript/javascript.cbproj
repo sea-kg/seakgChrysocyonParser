@@ -71,6 +71,10 @@
 				<DependentOn>puppies_JavaScript_firstlayer.h</DependentOn>
 				<BuildOrder>1</BuildOrder>
 			</CppCompile>
+			<CppCompile Include="puppies_JavaScript_secondlayer.cpp">
+				<DependentOn>puppies_JavaScript_secondlayer.h</DependentOn>
+				<BuildOrder>3</BuildOrder>
+			</CppCompile>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
