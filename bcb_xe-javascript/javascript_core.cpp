@@ -33,18 +33,28 @@ namespace javascript
 	  Implementation = L"";
   };
 
-  javascript::var &function::Exec(javascript::var vars[])
+  javascript::var function::Exec(javascript::var vars[])
   {
-    int count = sizeof(vars) / sizeof(javascript::var);
-    if( count != CountParameters )
+    if(vars != 0 )
     {
-      wcout << error( 1018, L" in function '" + Name + "' - want " + IntToStr(CountParameters) + " parametrs, but get " + IntToStr(count) + L" parametrs \n").getMsgW();
+      int count = sizeof(vars) / sizeof(javascript::var);
+      if( count != CountParameters )
+      {
+        wcout << error( 1018, L" in function '" + Name + "' - want " + IntToStr(CountParameters) + " parametrs, but get " + IntToStr(count) + L" parametrs \n").getMsgW();
 
-      throw 1; // not correct
+        throw 1; // not correct
+      };    
     };
-  	// to do parse and execute
+
+    // to do parse and execute
+    javascript::var var1;
+    return var1;
   };
-  
+
+  javascript::var function::Exec()
+  {
+    return Exec(0);  
+  }
   
   core::core()
   {
@@ -72,7 +82,9 @@ namespace javascript
     else
     {
       wcout << error( 1019, L"'" + func.Name + "' - function with " + IntToStr(func.CountParameters) + L" parametrs alrady exists \n").getMsgW();
+      return false;
     };
+    return true;
   };
   
   bool core::addVariable( javascript::var &var )
@@ -88,7 +100,9 @@ namespace javascript
     else
     {
       wcout << error( 1020, L"'" + var.Name + "' - variable alrady exists \n").getMsgW();
+      return false; 
     };
+    return true;
   };
   
   bool core::findFunction( UnicodeString Name, int CountParameters, javascript::function &func )

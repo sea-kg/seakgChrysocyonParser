@@ -27,6 +27,7 @@ typedef javascript::puppyStringInDoubleQuotes<wchar_t,UnicodeString> PuppyString
 
 
 typedef javascript::puppyDeclareVariables<UnicodeString,UnicodeString> PuppyDeclareVariables;
+typedef javascript::puppyDeclareFunctions<UnicodeString,UnicodeString> PuppyDeclareFunctions;
 /*
 typedef seakgPuppyAnySimbol<wchar_t,UnicodeString> PuppyAnySimbol;
 typedef seakgPuppyStringInDoubleQuotes<wchar_t,UnicodeString> PuppyStringInDoubleQuotes;
@@ -38,7 +39,7 @@ typedef seakgPuppyStringInDoubleQuotes<wchar_t,UnicodeString> PuppyStringInDoubl
 void init_layer_first( CharParser *pParser , javascript::core *pCore)
 {
 //	pParser->AddPuppy( new PuppyNumber() );
-	pParser->AddPuppy( new PuppyName(pCore) );
+  pParser->AddPuppy( new PuppyName(pCore) );
   pParser->AddPuppy( new PuppySpace(pCore) );
   pParser->AddPuppy( new PuppyLine(pCore) );
   pParser->AddPuppy( new PuppyMultiLineComments(pCore) );
@@ -50,6 +51,7 @@ void init_layer_first( CharParser *pParser , javascript::core *pCore)
   pParser->AddPuppy( new PuppyStringInDoubleQuotes(pCore) );
   pParser->AddPuppy( new PuppySimbol(pCore, ';') );
   pParser->AddPuppy( new PuppySimbol(pCore, '=') );
+  pParser->AddPuppy( new PuppySimbol(pCore, '+') );
   pParser->AddPuppy( new PuppySimbol(pCore, ',') );
 };
 //----------------------------------------------------------------------------
@@ -57,6 +59,7 @@ void init_layer_first( CharParser *pParser , javascript::core *pCore)
 void init_layer_second( JavaScriptParser *pParser , javascript::core *pCore)
 {
   pParser->AddPuppy( new PuppyDeclareVariables(pCore) );
+  pParser->AddPuppy( new PuppyDeclareFunctions(pCore) );
 
   /*
 //	pParser->AddPuppy( new PuppyNumber() );
@@ -104,32 +107,33 @@ int _tmain(int argc, _TCHAR* argv[])
 
   //init_layer_second( )
 
-	while( !pParserLayerSecond->Eof() )
-	{
-		UnicodeString strResult;
-		int err;
-		if( pParserLayerSecond->GetNextElement( strResult, err ) )
-		{
+  while( !pParserLayerSecond->Eof() )
+  {
+    UnicodeString strResult;
+    int err;
+    if( pParserLayerSecond->GetNextElement( strResult, err ) )
+    {
       /*
       if( strResult.Length() > 0 )
    			std::wcout << L"[" << strResult.c_str() << L"]\n";
-        */
+      */
       if( strResult.Length() > 0 )
-   			std::wcout << strResult.c_str() << " ";
-		}
-		else
-		{
-			std::cout << "[err=" << (int)err << "]\n";
-			break;
-		};
-	};
-	std::cout << "\r\n-----------";
-	std::cout << "\r\n";
+        std::wcout << strResult.c_str() << " ";
+    }
+    else
+    {
+      std::wcout << L"[err=" << UnicodeString(err).c_str() << L"]\n";
+      break;
+    };
+  };
+  std::cout << "\r\n-----------";
+  std::cout << "\r\n";
 
   javascript::var f1;
   javascript::var f2;
   javascript::var f3;
 
+  /*
   std::wcout << L" find variables: \r\n";
 
   if( pCore->findVariable( L"f1", f1 ) )
@@ -140,9 +144,19 @@ int _tmain(int argc, _TCHAR* argv[])
 
   if( pCore->findVariable( L"f3", f3 ) )
     std::wcout << L"var f3 = " << f3.Value.c_str() << L"\r\n";
+  */
 
+  javascript::function mainfunc;
+  if( pCore->findFunction( L"main", 0, mainfunc ) )
+  {
+    mainfunc.Exec();
+  }
+  else
+  {
+    wcout << L"not found function 'main' !!! \n";
+  };
 
-  getch();
+  //getch();
   return 0;
 }
 //---------------------------------------------------------------------------
