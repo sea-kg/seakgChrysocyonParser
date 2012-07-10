@@ -1,0 +1,2 @@
+call javascript test_var.javascript
+call javascript test_func.javascript
