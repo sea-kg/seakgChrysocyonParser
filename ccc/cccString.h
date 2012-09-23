@@ -1,0 +1,8 @@
+
+class cccString
+{
+	public:
+		
+		cccString();
+	
+}
