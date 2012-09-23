@@ -1,0 +1,25 @@
+/*
+* cross compile code c++ 1.0
+* mrseakg@gmail.com 2012 september 
+*
+*/
+
+#ifndef _CCCSTRING_
+#define _CCCSTRING_
+
+#include "cccInteger.h"
+
+#include "cccString_Container.h"
+
+class cccString
+{
+	public:
+		cccStringT() { m_t = InitNewString(m_t); };
+		cccStringT(const cccString_Container& t) { m_t = InitNewString(m_t, t); };
+		cccInt Length() { return LengthOfString(m_t); };
+		
+	private:
+		cccString_Container m_t;
+};
+
+#endif

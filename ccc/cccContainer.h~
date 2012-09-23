@@ -1,0 +1,24 @@
+
+/*
+* cross compile code c++ 1.0
+* mrseakg@gmail.com 2012 september 
+*
+*/
+
+#ifndef _CCCCONTENT_
+#define _CCCCONTENT_
+
+#include "cccVersion.h"
+
+class cccContent
+{
+	public:
+		cccContent() {};
+		cccContent(cccContent &content) { m_Content = content; };
+		CCCCONTENT getContent() { return m_Content; };
+		
+	private:
+		CCCCONTENT m_Content;
+};
+
+#endif

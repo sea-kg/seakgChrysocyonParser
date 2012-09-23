@@ -1,0 +1,28 @@
+1 все объекты разделены на группы:
+- контейнеры ( типы данных и операции над ними )
+- поставщики
+- конвееры
+- хранилища
+- упаковщик
+- распаковщик
+- представитель ( визуальный компанент )
+- виджеты ( визуальные компоненты )
+- задачи (реализация много поточности)
+- потоки контента ( поток ввода, вывода и ошибок)
+
+
+1, all objects are divided into groups:
+- Containers (data types and operations on them)
+- distributors
+- conveyors
+- storage
+- packer
+- unpacker
+- Representative (visual Kompanenty)
+- Widgets (visual components)
+- Tasks (implementing multi threading)
+- Streams of content (input, output and error)
+
+2 этот является прослойкой между любой библиотекой и конкретным кодом
+
+3 
