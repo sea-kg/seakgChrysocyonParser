@@ -18,7 +18,7 @@ class cccContent
 		cccContent(cccContent &content) { this->m_Content = content.getContent(); };
 		cccContent(const cccContent &content) { this->m_Content = content.getContent(); };
 		CCCCONTENT getContent() const { return m_Content; };
-
+		int getType() const { return 0; };
 		//void operator = (const cccContent &content) { m_Content = content.getContent(); };
 		//void operator = (CCCCONTENT &content) { m_Content = content; };
 

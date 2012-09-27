@@ -9,7 +9,7 @@
 #define _CCCSTRING_CONTAINER_
 
 #include "cccVersion.h"
-//#include "cccInteger.h"
+#include "cccInteger.h"
 //#include "cccStream.h"
 
 	#ifdef CCC_USE_QT

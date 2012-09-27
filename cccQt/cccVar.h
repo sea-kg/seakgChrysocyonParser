@@ -1,15 +1,7 @@
-
-/*
-* cross compile code c++ 1.0
-* mrseakg@gmail.com 2012 september 
-*
-*/
-
-#ifndef _CCCVAR_
-#define _CCCVAR_
+#ifndef __CCCVAR_H__
+#define __CCCVAR_H__
 
 #include "cccContent.h"
-#include "cccVar_Container.h"
 
 class cccVar
 {
@@ -21,13 +13,13 @@ class cccVar
 		cccVar(cccContent &content) { m_Value = content; };
 
 		cccContent getValue() const { return m_Value; };
-		virtual int getType() const { return m_Value.getType(); };
+//		virtual int getType() const { return m_Value.getType(); };
 
 		void operator = (cccVar& var) { m_Value = var.getValue(); };
 		void operator = (const cccVar& var) { m_Value = var.getValue(); };
 		void operator = (cccContent& content) { m_Value = content; };
 
-		virtual void operator + (cccVar& var) {};
+		virtual void operator + (cccVar&) {};
 		virtual void operator ++ () {};
 		virtual void operator - () {};
 		
@@ -35,4 +27,5 @@ class cccVar
 		cccContent m_Value;
 };
 
-#endif
+
+#endif // __CCCVAR_H__

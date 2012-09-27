@@ -8,16 +8,18 @@
 #ifndef _CCCINTEGER_
 #define _CCCINTEGER_
 
-class cccInteger : public cccContainer
+#include "cccVar.h"
+
+class cccInteger : public cccVar
 {
 	public:
 		cccInteger() { m_t = 0; };
 		cccInteger(int t) { m_t = t; };
 
-		virtual void ToStream(cccStream &strm) 
+/*		virtual void ToStream(cccStream &strm) 
 		{
 				// strm << m_t;
-		};    
+		}; */    
 
 //    int getInt() { return m_t; };
 		//Data

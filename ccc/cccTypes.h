@@ -10,10 +10,19 @@
 
 #include "cccVersion.h"
 
+enum cccType
+{
+	eVar = 0,
+	eInt = 1,
+	eChar = 2,
+	eString = 3
+};
+
 class cccContent;
 class cccVar;
-class cccChar : public cccVar;
-class cccString : public cccVar;
+class cccInteger;
+class cccChar; // : public cccVar;
+class cccString; //: public cccVar;
 
 //class cccInt : public cccVar;
 //class cccFloat : public cccVar;
