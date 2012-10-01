@@ -17,7 +17,7 @@
 	
 	// -----------------------------------------------------------------------
 	void Content_setFullContent(
-			const CCCFULLCONTENT & fullContent,					
+			const CCCFULLCONTENT & fullContent,
 			CCCTYPE & dst_type,
 			CCCSUBTYPE & dst_subtype, 
 			CCCLENGTH & dst_length,
@@ -121,6 +121,34 @@
 	CCCFULLCONTENT cccContent::getFullContent() const
 	{
 		return Content_getFullContent(m_Type, m_SubType, m_Length, m_Content);
+	};
+
+	// -----------------------------------------------------------------------
+
+	void cccContent::setContent(CCCCONTENT content)
+	{
+		m_Content = content;
+	}
+
+	// -----------------------------------------------------------------------
+
+	void cccContent::setType(CCCTYPE type)
+	{
+		m_Type = type;
+	};
+
+	// -----------------------------------------------------------------------
+
+	void cccContent::setSubType(CCCTYPE subtype)
+	{
+		m_SubType = subtype;
+	};
+
+	// -----------------------------------------------------------------------
+
+	void cccContent::setLength(CCCLENGTH length)
+	{
+		m_Length = length;
 	};
 
 	// -----------------------------------------------------------------------

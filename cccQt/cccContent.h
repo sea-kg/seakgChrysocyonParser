@@ -8,11 +8,6 @@
 
 #include "cccVersion.h"
 
-#define I int
-
-I func1(I i);
-
-
 #ifdef CCC_USE_QT
 	#include <QString>
 	#define CCCCONTENT QString
@@ -58,6 +53,11 @@ class cccContent
 		CCCTYPE getType() const;
 		CCCTYPE getSubType() const;
 		CCCLENGTH getLength() const;
+
+		void setContent(CCCCONTENT content);
+		void setType(CCCTYPE type);
+		void setSubType(CCCTYPE subtype);
+		void setLength(CCCLENGTH length);
 
 		CCCFULLCONTENT getFullContent() const;
   	void setFullContent(const CCCTYPE & type, const CCCSUBTYPE & subtype, const CCCLENGTH & length, const CCCCONTENT & content);

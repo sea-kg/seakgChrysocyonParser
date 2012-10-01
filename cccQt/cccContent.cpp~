@@ -125,6 +125,34 @@
 
 	// -----------------------------------------------------------------------
 
+	void cccContent::setContent(CCCCONTENT content)
+	{
+		m_Content = content;
+	}
+
+	// -----------------------------------------------------------------------
+
+	void cccContent::setType(CCCTYPE type)
+	{
+		m_Type = type;
+	};
+
+	// -----------------------------------------------------------------------
+
+	void cccContent::setSubType(CCCTYPE subtype)
+	{
+		m_SubType = subtype;
+	};
+
+	// -----------------------------------------------------------------------
+
+	void cccContent::setLength(CCCLENGTH length)
+	{
+		m_Length = length;
+	};
+
+	// -----------------------------------------------------------------------
+
 	void cccContent::setFullContent(const CCCTYPE & type, const CCCTYPE & subtype, const CCCLENGTH & length, const CCCCONTENT & content)
 	{
 		m_Content = content;
