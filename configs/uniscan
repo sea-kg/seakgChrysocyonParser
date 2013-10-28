@@ -1,0 +1,14 @@
+$mainLayer = MainLayer;
+$mainLayer.name = "scaner";
+$mainLayer.sublayers << 
+
+
+
+mainLayer = main {
+  cppLayer = cppLayer {
+    stringLayer = str { }
+  },
+  jsLayer = js { 
+    
+  }
+};
