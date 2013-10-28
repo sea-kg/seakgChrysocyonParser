@@ -1,8 +1,23 @@
+
+class IChryElement
+{  
+  SetType(QString);
+  SetValue(QString);
+  AddProperty(QString, QString);
+  AddChildElement(IChryElement *);
+};
+
+class IChryStack
+{
+  IChryElement * CreateElement(IChryElement *Parent);
+  Push(IChryElement *);
+  Pop();
+};
+
+
 $mainLayer = MainLayer;
 $mainLayer.name = "scaner";
 $mainLayer.sublayers << 
-
-
 
 mainLayer = main {
   cppLayer = cppLayer {
@@ -12,3 +27,23 @@ mainLayer = main {
     
   }
 };
+
+=> include parse string, integer;
+
+=> lang c++
+
+int add(int a, int b)
+{
+  return a+b;
+};
+
+=> lang js
+
+function add(a,b,c)
+{
+  return a+b+c;
+}
+
+=> lang pascal
+
+here pascal;
