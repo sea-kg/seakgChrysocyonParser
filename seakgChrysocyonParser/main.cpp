@@ -25,8 +25,6 @@ int main()
 	//seakgChrysocyon::seakgChrysocyonParser<char> parser();//();
 	//parser = new seakgChrysocyon::seakgChrysocyonParser<char>();
 
-
-
 	//parser->AddPuppy()
 
 	std::cout << "\n";

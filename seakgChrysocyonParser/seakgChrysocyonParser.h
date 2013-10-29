@@ -10,6 +10,60 @@
 
 namespace seakgChrysocyon
 {
+   class BaseElement
+   {  
+      void SetType(QString);
+      void SetValue(QString);
+      void AddProperty(QString, QString);
+      void AddChildElement(BaseElement *);
+   };
+
+   class BaseStack
+   {
+      BaseElement * CreateElement(BaseElement *Parent);
+      void Push(BaseElement *);
+      BaseElement * Peek();
+      void Pop();
+   };
+
+   class Layer 
+   {
+      void AddSubLayer(Layer *);
+   }
+
+
+  // LAYERS reg
+
+  // LAYER
+  /*
+    template<typename Element, typename ArrayOfElement>
+    
+
+
+
+    class IChryElement
+    {  
+      SetType(QString);
+      SetValue(QString);
+      AddProperty(QString, QString);
+      AddChildElement(IChryElement *);
+    };
+
+    class IChryStack
+    {
+      IChryElement * CreateElement(IChryElement *Parent);
+      Push(IChryElement *);
+      Pop();
+    };
+
+
+    template<typename Element, typename ArrayOfElement, Stack>
+    class Layers
+    {
+      
+    };
+
+  */
 	
 	//-----------------------------------------------
 	// PARSER
