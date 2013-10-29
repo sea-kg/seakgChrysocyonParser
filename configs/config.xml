@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <parser name="classParser">
+    <parser name="methodsParser"/>
+    <parser name="methodsParser"/>
+    <parser name="structParser"/>
+  </parser>
+  <layer name="mainLayer">
+    <layer name="cppLayer">
+      <layer name="namespaceLayer">
+        <parser>
+          <puppy name="variableLayer"/>
+          <puppy name="functionLayer"/>
+          <puppy name="classLayer"/>
+        </parser>
+        <layer name="classLayer">        
+        </layer>
+      </layer>
+    </layer>
+    <layer name="cppLayer">
+    </layer>
+  </layer>
+</config>
