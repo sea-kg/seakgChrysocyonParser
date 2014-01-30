@@ -1,0 +1,2 @@
+qmake scansrc.pro
+make
