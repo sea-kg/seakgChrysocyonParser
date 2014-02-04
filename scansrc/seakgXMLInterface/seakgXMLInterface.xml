@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class id="uuid" name="IBlabla" version_format="v1">
+	<project_name>ACTApro</project_name>
+	<source_filepath>/HiDA/plugins/HiDADocLock.h</source_filepath>
+	<uuid>some uuid</uuid>
+	<last_date_updated>01.01.2014 12:11:45</last_date_updated>
+	<methods>
+		<method name = "name of method"/>
+		<method name = "name_of_method2"/>
+	</methods>
+	<class_comment>here</class_comment>
+	<class_text>as in file</class_text>
+</class>

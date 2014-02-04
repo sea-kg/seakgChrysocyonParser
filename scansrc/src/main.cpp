@@ -13,7 +13,6 @@ int main(int argc, char *argv[]) {
 		return -1;
 	};
 
-
 	QString strDir = QString(argv[1]);
 	seakgChryReader_ScanDir<QString> *reader = new seakgChryReader_ScanDir<QString>();
 	reader->setDir(strDir);

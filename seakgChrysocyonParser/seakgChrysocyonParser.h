@@ -4,13 +4,14 @@
 #include "src/enums.h"
 #include "src/interfaces.h"
 #include "src/stack.h"
+#include <QString>
 
 #include <vector>
 #include <iostream>
 
 namespace seakgChrysocyon
 {
-   class BaseElement
+  /* class BaseElement
    {  
       void SetType(QString);
       void SetValue(QString);
@@ -30,7 +31,7 @@ namespace seakgChrysocyon
    {
       void AddSubLayer(Layer *);
    }
-
+*/
 
   // LAYERS reg
 

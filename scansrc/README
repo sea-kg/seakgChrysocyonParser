@@ -1,0 +1,7 @@
+
+
+(reader<QString>:scandirs) -> 
+(parser<QString, QString> filter_by_name) ->
+(parser<QString, QChar> file_reader) ->
+(parser<QChar,QString> parser_to_lexems) ->
+(parser<QString,seakgXMLInterface *> searching_interfaces) ->

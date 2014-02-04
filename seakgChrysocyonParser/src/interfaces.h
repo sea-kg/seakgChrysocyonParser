@@ -14,8 +14,8 @@ namespace seakgChrysocyon
 	class InterfaceChrysocyonReader // interface
 	{
 		public:
+		   virtual bool GetNextElement( Element &, int & ) = 0;
 			virtual bool Eof() = 0;
-			virtual bool GetNextElement( Element &, int & ) = 0;
 	};
 	
 	//-----------------------------------------------
