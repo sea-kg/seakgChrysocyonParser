@@ -23,14 +23,23 @@ bool isSupportsExt(UnicodeString ext) {
 
 // ---------------------------------------
 
+UnicodeString encoding_html(UnicodeString str)
+{
+  str = StringReplace(str, "&", "&amp;", TReplaceFlags() << rfReplaceAll);
+  str = StringReplace(str, "<", "&lt;", TReplaceFlags() << rfReplaceAll);
+  str = StringReplace(str, ">", "&gt;", TReplaceFlags() << rfReplaceAll);
+  return str;
+}
+
+// ---------------------------------------
+
 void PrintDoc(UnicodeString filename, UnicodeString name, UnicodeString uuid, UnicodeString code) {
   filename = filename.SubString(rootPath.Length()+1, filename.Length() - rootPath.Length());
   UnicodeString id = "";
 //  UnicodeString id = "";
  
-  code = StringReplace(code, "&", "&amp;", TReplaceFlags() << rfReplaceAll);
-  code = StringReplace(code, "<", "&lt;", TReplaceFlags() << rfReplaceAll);
-  code = StringReplace(code, ">", "&gt;", TReplaceFlags() << rfReplaceAll);
+  code = encoding_html(code);
+  name = encoding_html(code);
 
   TGUID g;
   OleCheck(CoCreateGuid(&g));
