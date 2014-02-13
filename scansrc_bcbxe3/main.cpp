@@ -13,7 +13,8 @@
 
 UnicodeString rootPath = L"";
 UnicodeString projectName = L"";
-
+int i = 0;
+int g_nInc = 0;
 // ---------------------------------------
 
 bool isSupportsExt(UnicodeString ext) {
@@ -37,23 +38,62 @@ void PrintDoc(UnicodeString filename, UnicodeString name, UnicodeString uuid, Un
   filename = filename.SubString(rootPath.Length()+1, filename.Length() - rootPath.Length());
   UnicodeString id = "";
 //  UnicodeString id = "";
- 
+
   code = encoding_html(code);
-  name = encoding_html(code);
+  name = encoding_html(name);
 
   TGUID g;
   OleCheck(CoCreateGuid(&g));
-  Sysutils::GUIDToString(g);
+  //Sysutils::GUIDToString(g);
+  //id = Sysutils::GUIDToString(g);
+  //id = id.SubString(2,37) + "[" + IntToStr(g_nInc++) + "]";
 
-  std::wcout << "\t<doc>\r\n";  
-  std::wcout << "\t\t<field name=\"id\">" << Sysutils::GUIDToString(g).c_str() << "</field>\r\n";  
-  std::wcout << "\t\t<field name=\"project\">" << projectName.c_str() << "</field>\r\n";  
-  std::wcout << "\t\t<field name=\"name\">" << name.c_str() << "</field>\r\n";  
-  std::wcout << "\t\t<field name=\"uuid\">" << uuid.UpperCase().c_str() << "</field>\r\n";  
+  id = IntToStr(g_nInc++);
+  while (id.Length() < 6)
+    id = "0" + id;
+
+  std::wcout << "\t<doc>\r\n";
+  std::wcout << "\t\t<field name=\"id\">" << id.c_str() << "</field>\r\n";
+  std::wcout << "\t\t<field name=\"project\">" << projectName.c_str() << "</field>\r\n";
+  std::wcout << "\t\t<field name=\"name\">" << name.c_str() << "</field>\r\n";
+  std::wcout << "\t\t<field name=\"uuid\">" << uuid.UpperCase().c_str() << "</field>\r\n";
   std::wcout << "\t\t<field name=\"source_filepath\">" << filename.c_str() << "</field>\r\n";
   std::wcout << "\t\t<field name=\"full_source_code\">\r\n" << code.c_str() << "\r\n\t\t</field>\r\n";
   std::wcout << "\t</doc>\r\n";
 };
+
+// ---------------------------------------
+
+UnicodeString getName(UnicodeString str) {
+ UnicodeString name = str;
+
+ if (name.Pos(":") > 0)
+   name = name.SubString(1, name.Pos(":")-1);
+ UnicodeString alphabet = L"QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890_";
+
+ while (true) {
+   if (name.Length() == 0)
+     break;
+   UnicodeString ch = name.SubString(name.Length(), 1);
+   if (alphabet.Pos(ch) > 0 && name.Length() > 0)
+     break;
+   name = name.SubString(1, name.Length()-1);
+ }
+
+ UnicodeString temp_name;
+ while (true) {
+   if (name.Length() == 0)
+     break;
+   UnicodeString ch = name.SubString(name.Length(), 1);
+   if (alphabet.Pos(ch) > 0 && name.Length() > 0)
+     temp_name = ch + temp_name;
+   else
+     break;
+   name = name.SubString(1, name.Length()-1);
+ }
+
+ return temp_name;
+}
 
 // ---------------------------------------
 
@@ -67,8 +107,13 @@ void ScanAndPrint(UnicodeString fullname) {
 	  if (str.Pos(L"class") > 0 && str.Pos("__declspec") > 0) {
       UnicodeString code = str + "\r\n";
       str = str.Trim();
-      UnicodeString uuid = str.SubString(str.Pos("\"") + 1, 36);
+
+      UnicodeString uuid = "none";
+      if (str.Pos("\"") > 0)
+        uuid = str.SubString(str.Pos("\"") + 1, 36);
+
       UnicodeString interfacename = str.SubString(str.Pos("I"), str.Length() - str.Pos("I") + 1);
+      UnicodeString interfacename2 = getName(str);
       bool bStop = false;
       int nIncr = 0;
       while (bStop == false && i < nCount) {
@@ -86,7 +131,7 @@ void ScanAndPrint(UnicodeString fullname) {
         code += str + "\r\n";
       };
 
-      PrintDoc(fullname, interfacename, uuid, code);
+	  PrintDoc(fullname, interfacename2, uuid, code);
 //      std::wcout << str.c_str();
     };
   };
@@ -135,6 +180,7 @@ int _tmain(int argc, _TCHAR* argv[])
   std::wcout << "<add>\r\n";
   rootPath = UnicodeString(argv[1]); // L"C:\\Projects\\ACTApro.git";
   projectName = UnicodeString(argv[2]); // L"ACTApro 2.0 (rev. )";
+  g_nInc = 0;
   SearchAndScan(rootPath);
   std::wcout << "</add>\r\n";
   return 0;
