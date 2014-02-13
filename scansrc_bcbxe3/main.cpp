@@ -13,6 +13,7 @@
 
 UnicodeString rootPath = L"";
 UnicodeString projectName = L"";
+UnicodeString prefixforid = L"";
 int i = 0;
 int g_nInc = 0;
 // ---------------------------------------
@@ -51,6 +52,8 @@ void PrintDoc(UnicodeString filename, UnicodeString name, UnicodeString uuid, Un
   id = IntToStr(g_nInc++);
   while (id.Length() < 6)
     id = "0" + id;
+
+  id = prefixforid + id;
 
   std::wcout << "\t<doc>\r\n";
   std::wcout << "\t\t<field name=\"id\">" << id.c_str() << "</field>\r\n";
@@ -171,15 +174,16 @@ void SearchAndScan(UnicodeString DirName/*, TDateTime &D, UnicodeString &S*/)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-  if (argc != 3)
+  if (argc != 4)
   {
-    std::wcout << "usage: input_folder project_name";
+    std::wcout << "usage: input_folder project_name prefix_id";
     return -1;
   }
 
   std::wcout << "<add>\r\n";
   rootPath = UnicodeString(argv[1]); // L"C:\\Projects\\ACTApro.git";
   projectName = UnicodeString(argv[2]); // L"ACTApro 2.0 (rev. )";
+  prefixforid = UnicodeString(argv[3]);
   g_nInc = 0;
   SearchAndScan(rootPath);
   std::wcout << "</add>\r\n";
