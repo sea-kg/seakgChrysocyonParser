@@ -16,6 +16,33 @@ UnicodeString projectName = L"";
 UnicodeString prefixforid = L"";
 int i = 0;
 int g_nInc = 0;
+
+// ---------------------------------------
+
+class seakgOutput {
+  public:
+    virtual void addline(UnicodeString str) = 0;
+};
+
+// ---------------------------------------
+
+class seakgOutput_std : public seakgOutput {
+  public:
+    virtual void addline(UnicodeString str) {
+      std::wcout << str.c_str() << "\n";
+    };
+};
+
+class seakgOutput_list : public seakgOutput {
+   TStringList *m_pList;
+  public:
+    seakgOutput_list(TStringList *list) : m_pList(list) {}
+    virtual void addline(UnicodeString str) {
+      m_pList->Add(str);
+//      std::wcout << str.c_str() << "\n";
+    };
+};
+
 // ---------------------------------------
 
 bool isSupportsExt(UnicodeString ext) {
@@ -30,12 +57,14 @@ UnicodeString encoding_html(UnicodeString str)
   str = StringReplace(str, "&", "&amp;", TReplaceFlags() << rfReplaceAll);
   str = StringReplace(str, "<", "&lt;", TReplaceFlags() << rfReplaceAll);
   str = StringReplace(str, ">", "&gt;", TReplaceFlags() << rfReplaceAll);
+  str = StringReplace(str, "\r\n", "\n", TReplaceFlags() << rfReplaceAll);
+  str = StringReplace(str, "\r", "", TReplaceFlags() << rfReplaceAll);
   return str;
 }
 
 // ---------------------------------------
 
-void PrintDoc(UnicodeString filename, UnicodeString name, UnicodeString uuid, UnicodeString code) {
+void PrintDoc(seakgOutput *pOutput, UnicodeString filename, UnicodeString name, UnicodeString uuid, UnicodeString code) {
   filename = filename.SubString(rootPath.Length()+1, filename.Length() - rootPath.Length());
   UnicodeString id = "";
 //  UnicodeString id = "";
@@ -55,14 +84,14 @@ void PrintDoc(UnicodeString filename, UnicodeString name, UnicodeString uuid, Un
 
   id = prefixforid + id;
 
-  std::wcout << "\t<doc>\r\n";
-  std::wcout << "\t\t<field name=\"id\">" << id.c_str() << "</field>\r\n";
-  std::wcout << "\t\t<field name=\"project\">" << projectName.c_str() << "</field>\r\n";
-  std::wcout << "\t\t<field name=\"name\">" << name.c_str() << "</field>\r\n";
-  std::wcout << "\t\t<field name=\"uuid\">" << uuid.UpperCase().c_str() << "</field>\r\n";
-  std::wcout << "\t\t<field name=\"source_filepath\">" << filename.c_str() << "</field>\r\n";
-  std::wcout << "\t\t<field name=\"full_source_code\">\r\n" << code.c_str() << "\r\n\t\t</field>\r\n";
-  std::wcout << "\t</doc>\r\n";
+  pOutput->addline("\t<doc>");
+  pOutput->addline("\t\t<field name=\"id\">" + id + "</field>");
+  pOutput->addline("\t\t<field name=\"project\">" + projectName + "</field>");
+  pOutput->addline("\t\t<field name=\"name\">" + name + "</field>");
+  pOutput->addline("\t\t<field name=\"uuid\">" + uuid.UpperCase() + "</field>");
+  pOutput->addline("\t\t<field name=\"source_filepath\">" + filename + "</field>");
+  pOutput->addline("\t\t<field name=\"full_source_code\">\n" + code + "\n\t\t</field>");
+  pOutput->addline("\t</doc>");
 };
 
 // ---------------------------------------
@@ -100,7 +129,7 @@ UnicodeString getName(UnicodeString str) {
 
 // ---------------------------------------
 
-void ScanAndPrint(UnicodeString fullname) {
+void ScanAndPrint(seakgOutput *pOutput, UnicodeString fullname) {
   TStringList *list = new TStringList();  
   list->LoadFromFile(fullname);
   int nCount = list->Count;
@@ -131,10 +160,10 @@ void ScanAndPrint(UnicodeString fullname) {
           if(nIncr == 0) bStop = true;
         };
 
-        code += str + "\r\n";
+        code += str + "\n";
       };
 
-	  PrintDoc(fullname, interfacename2, uuid, code);
+	  PrintDoc(pOutput, fullname, interfacename2, uuid, code);
 //      std::wcout << str.c_str();
     };
   };
@@ -148,7 +177,7 @@ void ScanAndPrint(UnicodeString fullname) {
 
 // ---------------------------------------
 
-void SearchAndScan(UnicodeString DirName/*, TDateTime &D, UnicodeString &S*/)
+void SearchAndScan(seakgOutput *pOutput, UnicodeString DirName/*, TDateTime &D, UnicodeString &S*/)
 {
 	TSearchRec sr;
 	for(int r=FindFirst( DirName + "\\*.*", faDirectory,sr); !r; r=FindNext(sr))
@@ -157,14 +186,14 @@ void SearchAndScan(UnicodeString DirName/*, TDateTime &D, UnicodeString &S*/)
 			continue;
 
 		if(sr.FindData.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY) {
-			SearchAndScan(DirName + "\\" + sr.Name);
+			SearchAndScan(pOutput, DirName + "\\" + sr.Name);
 		} else {
 		   // if(FileDateToDateTime(sr.Time) > D)
 			if ( isSupportsExt(ExtractFileExt(sr.Name)) ) {
 //					D = FileDateToDateTime(sr.Time);
 					// S = DirName + "\\" + sr.Name;
           UnicodeString fullpath = DirName + L"\\" + sr.Name;
-          ScanAndPrint(fullpath);
+          ScanAndPrint(pOutput, fullpath);
 					//std::wcout << fullpath.c_str() << "\r\n";
 			}
 		}
@@ -172,21 +201,38 @@ void SearchAndScan(UnicodeString DirName/*, TDateTime &D, UnicodeString &S*/)
 	FindClose(sr);
 }
 
+// ---------------------------------------
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-  if (argc != 4)
-  {
-    std::wcout << "usage: input_folder project_name prefix_id";
+  seakgOutput *pOutput = 0;
+  TStringList *list = new TStringList();
+  if (argc == 5) {
+    pOutput = new seakgOutput_list(list);    
+  } else if (argc == 4) {
+    pOutput = new seakgOutput_std();    
+  } else {
+    std::wcout << "usage: input_folder project_name prefix_id output_file\n";
+    std::wcout << "or usage: input_folder project_name prefix_id\n";
     return -1;
   }
 
-  std::wcout << "<add>\r\n";
+//  
+//  output->Add("<add>");
+  pOutput->addline("<add>");
   rootPath = UnicodeString(argv[1]); // L"C:\\Projects\\ACTApro.git";
   projectName = UnicodeString(argv[2]); // L"ACTApro 2.0 (rev. )";
   prefixforid = UnicodeString(argv[3]);
   g_nInc = 0;
-  SearchAndScan(rootPath);
-  std::wcout << "</add>\r\n";
+  SearchAndScan(pOutput, rootPath);
+  // output->Add("</add>");
+  pOutput->addline("</add>");
+
+  if (argc == 5) {
+    UnicodeString outputFile = UnicodeString(argv[4]);
+    list->SaveToFile(outputFile);    
+  }
+
   return 0;
 }
 
